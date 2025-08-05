@@ -1,10 +1,14 @@
-# Flappie Vogel Kloon Handleiding
+# Flappy Bird Kloon Handleiding
 
-In deze handleiding maken we een simpel "Flappie Vogel"-achtig spel. De speler bestuurt een vogel die door een reeks pijpen moet vliegen zonder de grond of de pijpen te raken.
+In deze handleiding maken we een simpel "Flappy Bird"-achtig spel. De speler bestuurt een vogel die door een reeks pijpen moet vliegen zonder de grond of de pijpen te raken.
 
 ## Stap 1: De Vogel Sprite
 
-Maak eerst een nieuwe sprite voor onze held. Laten we hem "Vogel" noemen. We hebben één variabele nodig voor deze sprite, dus ga naar de categorie "Variabelen" en maak een nieuwe variabele genaamd `y-snelheid`. Zorg ervoor dat deze alleen voor deze sprite is.
+Verwijder eerst de kat sprite, die hebben we niet nodig.
+
+Maak een nieuwe sprite voor onze held. Laten we die "Vogel" noemen. Je mag zelf een sprite kiezen uit de lijst.
+
+We hebben één variabele nodig voor deze sprite, dus ga naar de categorie "Variabelen" en maak een nieuwe variabele genaamd `y-snelheid`. Zorg ervoor dat deze alleen voor deze sprite is.
 
 ### De Vogel Laten Vallen
 
@@ -29,13 +33,19 @@ wanneer [spatiebalk v] is ingedrukt
 maak [y-snelheid v] (10)
 ```
 
-## Stap 2: De Pijpen
+## Stap 2: De Achtergrond
 
-Nu de obstakels. Maak een nieuwe sprite met de naam "Pijpen". Het uiterlijk voor deze sprite moet een paar pijpen zijn met een opening in het midden waar de vogel doorheen kan vliegen.
+Voeg een achtergrond toe die past bij het spel, bijvoorbeeld "Blue Sky"
+
+## Stap 3: De Pijpen
+
+Nu de obstakels. Maak een nieuwe sprite met de naam "Pijpen", die je zelf gaat tekenen. 
+
+Het uiterlijk voor deze sprite moet een paar pijpen zijn met een opening in het midden waar de vogel doorheen kan vliegen.
 
 ### Een Stroom van Pijpen Creëren
 
-We willen dat er elke paar seconden een nieuwe pijp aan de rechterkant van het scherm verschijnt. We kunnen dit doen door klonen van onze "Pijpen"-sprite te maken.
+We willen dat er elke paar seconden een nieuwe pijp aan de rechterkant van het scherm verschijnt. We kunnen dit doen door klonen van onze "Pijpen"-sprite te maken. Het origineel gaan we verbergen.
 
 ```scratchblocks:nl
 wanneer groene vlag wordt aangeklikt
@@ -60,7 +70,7 @@ einde
 verwijder deze kloon
 ```
 
-## Stap 3: Spel Logica
+## Stap 4: Spel Logica
 
 Laten we nu de regels voor winnen en verliezen toevoegen.
 
@@ -88,7 +98,7 @@ maak [score v] (0)
 
 ### Botsing en Game Over
 
-Het spel moet eindigen als de vogel een pijp raakt of op de grond valt. Voeg dit script toe aan de "Vogel"-sprite. Het controleert op een botsing en zendt een "game over"-signaal uit.
+Het spel moet eindigen als de vogel een pijp raakt of op de grond valt. Voeg dit script toe aan de "Vogel"-sprite. Het controleert op een botsing.
 
 ```scratchblocks:nl
 wanneer groene vlag wordt aangeklikt
@@ -99,14 +109,19 @@ herhaal
 einde
 ```
 
-Tot slot moeten we alle sprites vertellen wat ze moeten doen als ze het "game over"-signaal ontvangen. Het gebruik van `stop alles` is de gemakkelijkste manier om het spel te beëindigen. Voeg dit script toe aan de "Vogel"-sprite.
+Tot slot willen we dat er een "Game Over!" tekst verschijnt. Maak een nieuwe sprite met naam "GameOver" die je zelf tekent. Schrijf of typ de tekst in de sprite.
+
+De tekst moet onzichtbaar zijn wanneer het spel begint, en moet verschijnen wanneer het spel gedaan is.
 
 ```scratchblocks:nl
+wanneer groene vlag wordt aangeklikt
+verdwijn
+
 wanneer ik signaal [game over v] ontvang
-zeg [Game Over!]
-stop [alles v]
+verschijn
+stop [alle v]
 ```
 
 ## Conclusie
 
-En dat is het! Je hebt nu een eenvoudige maar functionele Flappie Vogel-kloon. Je kunt dit uitbreiden door geluiden, interessantere graphics of een startscherm toe te voegen. Veel programmeerplezier!
+En dat is het! Je hebt nu een eenvoudige maar functionele Flappy Bird-kloon. Je kunt dit uitbreiden door geluiden, interessantere graphics of een startscherm toe te voegen. Veel programmeerplezier!
