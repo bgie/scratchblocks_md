@@ -141,3 +141,4 @@ vite.config.ts.timestamp-*
 
 *_rendered.md
 /examples/generated
+/scratchblocks-3.6.4/src

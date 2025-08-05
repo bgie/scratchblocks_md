@@ -1,0 +1,349 @@
+// Beweging
+
+neem (10) stappen
+draai (15) graden naar rechts
+draai (15) graden naar links
+
+richt naar (90 v) graden
+richt naar [ v]
+
+ga naar x: (0) y: (0)
+ga naar [mouse-pointer v]
+schuif in (1) sec. naar x: (0) y: (0)
+
+verander x met (10)
+maak x (0)
+verander y met (10)
+maak y (0)
+
+keer om aan de rand
+
+maak draaistijl [left-right v]
+
+(x-positie)
+(y-positie)
+(richting)
+
+
+
+// Uiterlijken
+
+zeg [Hello!] (2) sec.
+zeg [Hello!]
+denk [Hmm...] (2) sec.
+denk [Hmm...]
+
+verschijn
+verdwijn
+
+verander uiterlijk naar [costume1 v]
+volgend uiterlijk
+verander achtergrond naar [backdrop1 v]
+
+verander [color v] effect met (25)
+zet [color v] effect op (0)
+zet alle effecten uit
+
+verander grootte met (10)
+maak grootte (100) %
+
+ga naar laag front
+ga back (1) lagen
+
+(uiterlijk #)
+(achtergrond naam)
+(grootte)
+
+// (Stage-specific)
+
+verander achtergrond naar [backdrop1 v] en wacht
+volgende achtergrond
+
+(achtergrond #)
+
+
+
+// Geluid
+
+start geluid [pop v]
+start geluid [pop v] en wacht
+stop alle geluiden
+
+speel drum (1 v)gedurende(0.2) maten
+(0.2)maten rust
+
+speel noot (60 v) gedurende (0.5)maten
+maak instrument (1 v)
+
+verander volume met (-10)
+zet volume op (100)%
+(volume)
+
+verander tempo met (20)
+maak tempo (60)
+(tempo)
+
+
+
+// Pen
+
+wis alles
+
+stempel
+
+pen neer
+pen op
+
+maak penkleur [#f0f]
+verander penkleur met (10)
+maak penkleur (0)
+
+verander penhelderheid met (10)
+maak penhelderheid (50)
+
+verander pendikte met (1)
+maak pendikte (1)
+
+
+
+// Variabelen
+
+maak [var v] [0]
+verander [var v] met (1)
+toon variabele [var v]
+verberg variabele [var v]
+
+
+
+// List
+
+voeg [thing] toe aan [list v]
+
+verwijder (1 v) van [list v]
+voeg [thing] toe op (1 v) van [list v]
+vervang item (1 v) van [list v] door [thing]
+
+(item (1 v) van [list v])
+(lengte van [list v])
+<[list v] bevat [thing]?>
+
+toon lijst [list v]
+verberg lijst [list v]
+
+
+
+// Gebeurtenissen
+
+wanneer groene vlag wordt aangeklikt
+wanneer [space v] is ingedrukt
+wanneer op deze sprite wordt geklikt
+wanneer achtergrond verandert naar [backdrop1 v]
+
+wanneer [loudness v] > (10)
+
+wanneer ik signaal [message1 v] ontvang
+zend signaal [message1 v]
+zend signaal [message1 v] en wacht
+
+
+
+// Besturen
+
+wacht (1) sec.
+
+herhaal (10)
+einde
+
+herhaal
+einde
+
+als <> dan
+einde
+
+als <> dan
+anders
+einde
+
+wacht tot <>
+
+herhaal tot <>
+einde
+
+// caps!
+
+stop [all v]
+
+stop [this script v]
+
+// stack
+
+stop [other scripts in sprite v]
+
+stop [other scripts in stage v]
+
+wanneer ik als kloon start
+maak een kloon van [myself v]
+verwijder deze kloon
+
+
+
+// Waarnemen
+
+<raak ik [ v]?>
+<raak ik kleur [#f0f]?>
+<raakt kleur [#f0f] kleur [#0f0]?>
+(afstand tot [ v])
+
+vraag [What's your name?] en wacht
+(antwoord)
+
+<toets [space v] ingedrukt?>
+<muis ingedrukt?>
+(muis x)
+(muis y)
+
+(volume)
+
+(video [motion v]van[this sprite v])
+zet video [on v]
+zet video transparantie op (50)
+
+(klok)
+zet klok op 0
+
+(x-positie van [Sprite1 v])
+
+(huidige [minute v])
+(dagen sinds 2000)
+(gebruikersnaam)
+(gebruiker id)
+
+
+
+// Functies
+
+(() + ())
+(() - ())
+(() * ())
+(() / ())
+
+(willekeurig getal tussen (1) en (10))
+
+<[] < []>
+<[] = []>
+<[] > []>
+&lt;[] < []&gt;
+&lt;[] > []&gt;
+
+<<> en <>>
+<<> of <>>
+<niet <>>
+
+(voeg [hello ] en [world] samen)
+(letter (1) van [world])
+(lengte van [world])
+
+(() modulo ())
+(afgerond ())
+
+([wortel v] van (9))
+
+
+// PicoBoard
+
+when [button pressed v]
+
+when [slider v] [> v] (50)
+
+<sensor [button pressed v]?
+
+([slider v] sensor value)
+
+// Lego WeDo 1.0
+
+turn [motor v] on for (1) secs
+
+turn [motor v] on
+
+turn [motor v] off
+
+set [motor v] power to (100)
+
+set [motor v] direction to [this way v]
+
+when distance [< v] (20)
+
+when tilt [= v] (20)
+
+(distance)
+
+(tilt)
+
+// Lego WeDo 2.0
+
+zet [motor v] (1)seconde aan
+
+zet [motor v]aan
+
+zet [motor v]uit
+
+zet [motor v]kracht op (100)
+
+zet [motor v]richting op [this way v]
+
+zet lichtkleur op (50)
+
+speel noot (60 v) (0.5)seconde
+
+als afstand < (50)
+
+als gekanteld naar
+
+(afstand)
+
+(kantelhoek [up-down v])
+
+
+// Obsolete Scratch 1.4 blocks:
+
+
+// Uiterlijken
+
+verander uiterlijk naar [costume1 v]
+
+verander achtergrond naar [background1 v]
+volgende achtergrond
+(achtergrond #)
+
+
+
+// Besturen
+
+als <>
+einde
+
+forever if <>
+end
+
+stop script
+stop all
+
+
+
+// Gebeurtenissen
+
+when Sprite1 clicked
+
+
+
+// Waarnemen
+
+<luid?>
+
+
+
+// Grey
+
+. . .
+...
+…

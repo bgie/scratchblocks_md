@@ -2,6 +2,7 @@
 <html>
 <head>
   <script src="scratchblocks-3.6.4/scratchblocks.min.js"></script>
+  <script src="scratchblocks-3.6.4/translations-all.js"></script>
   <style>
     body { margin: 0; padding: 20px; font-family: sans-serif; }
     .scratch-block { display: inline-block; }
@@ -10,13 +11,13 @@
 <body>
   <div id="container" class="scratch-block"></div>
   <script>
-    window.renderScratchBlocks = function(code) {
+    window.renderScratchBlocks = function(code, lang) {
       const container = document.getElementById("container");
       container.innerText = code;
       scratchblocks.renderMatching('#container', {
         inline: false,
         style: 'scratch3-high-contrast',
-        languages: ['en'],
+        languages: [lang || 'en'],
         scale: 2,
       });
     }

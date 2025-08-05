@@ -8,7 +8,7 @@ const sizeOf = require("image-size");
 const watchDir = process.argv[2] || "examples";
 const renderedSuffix = "_rendered.md";
 
-async function renderFile(filePath, browser, page) {
+async function renderFile(filePath, browser) {
   console.log(`Processing ${filePath}...`);
 
   const sourceDir = path.dirname(filePath);
@@ -16,23 +16,28 @@ async function renderFile(filePath, browser, page) {
   const baseName = path.basename(filePath, ".md");
   const outputFile = path.join(generatedDir, `${baseName}${renderedSuffix}`);
 
+  let page;
   try {
+    page = await browser.newPage();
+    await page.goto("file://" + path.resolve("render.html"));
+
     await fs.ensureDir(generatedDir);
     const markdown = await fs.readFile(filePath, "utf8");
-    const scratchBlocks = [...markdown.matchAll(/```scratchblocks\n([\s\S]*?)```/g)];
+    const scratchBlocks = [...markdown.matchAll(/```scratchblocks(?::(\w+))?\n([\s\S]*?)```/g)];
 
     let modified = markdown;
 
     for (let i = 0; i < scratchBlocks.length; i++) {
-      const block = scratchBlocks[i][1].trim();
+      const lang = scratchBlocks[i][1] || 'en';
+      const block = scratchBlocks[i][2].trim();
       const hash = crypto.createHash("md5").update(block).digest("hex").slice(0, 8);
       const imagePath = path.join(generatedDir, `block-${hash}.png`);
 
       if (!await fs.pathExists(imagePath)) {
-        await page.evaluate((code) => {
+        await page.evaluate((code, lang) => {
           document.getElementById("container").innerHTML = "";
-          window.renderScratchBlocks(code);
-        }, block);
+          window.renderScratchBlocks(code, lang);
+        }, block, lang);
 
         await page.waitForSelector(".scratch-block svg");
         const element = await page.$(".scratch-block svg");
@@ -82,6 +87,8 @@ async function renderFile(filePath, browser, page) {
     console.log(`Successfully generated PDF: ${pdfOutputFile}`);
   } catch (error) {
     console.error(`Failed to process ${filePath}:`, error);
+  } finally {
+    if (page) await page.close();
   }
 }
 
@@ -89,8 +96,6 @@ async function renderFile(filePath, browser, page) {
   await fs.ensureDir(watchDir);
 
   const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto("file://" + path.resolve("render.html"));
 
   const watcher = chokidar.watch(`${watchDir}/**/*.md`, {
     ignored: `**/generated/**`,
@@ -98,8 +103,8 @@ async function renderFile(filePath, browser, page) {
   });
 
   watcher
-    .on("add", (filePath) => renderFile(filePath, browser, page))
-    .on("change", (filePath) => renderFile(filePath, browser, page))
+    .on("add", (filePath) => renderFile(filePath, browser))
+    .on("change", (filePath) => renderFile(filePath, browser))
     .on("ready", () => console.log(`Initial scan complete. Ready for changes in ./${watchDir}`));
 
   const closeBrowser = async () => {
