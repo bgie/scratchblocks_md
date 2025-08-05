@@ -1,0 +1,15 @@
+{
+  "name": "scratch-md-gen",
+  "version": "1.0.0",
+  "description": "Render Scratch blocks in markdown",
+  "main": "generate-images.js",
+  "scripts": {
+    "start": "node generate-images.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "markdown-it": "^14.0.0",
+    "puppeteer": "^22.0.0",
+    "chokidar": "^3.6.0"
+  }
+}
