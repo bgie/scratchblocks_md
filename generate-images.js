@@ -3,11 +3,12 @@ const path = require("path");
 const puppeteer = require("puppeteer");
 const crypto = require("crypto");
 const chokidar = require("chokidar");
+const sizeOf = require("image-size");
 
 const watchDir = process.argv[2] || "examples";
 const renderedSuffix = "_rendered.md";
 
-async function renderFile(filePath, page) {
+async function renderFile(filePath, browser, page) {
   console.log(`Processing ${filePath}...`);
 
   const sourceDir = path.dirname(filePath);
@@ -48,6 +49,37 @@ async function renderFile(filePath, page) {
 
     await fs.writeFile(outputFile, modified);
     console.log(`Successfully rendered ${filePath} to ${outputFile}`);
+
+    const pdfOutputFile = path.join(generatedDir, `${baseName}.pdf`);
+
+    // For PDF generation, embed images as data URIs to avoid file access issues.
+    const md_pdf = require("markdown-it")();
+    const defaultImageRule = md_pdf.renderer.rules.image;
+    md_pdf.renderer.rules.image = (tokens, idx, options, env, self) => {
+      const token = tokens[idx];
+      const src = token.attrGet("src");
+      const imagePath = path.resolve(generatedDir, src);
+      try {
+        if (fs.existsSync(imagePath)) {
+          const dimensions = sizeOf(imagePath);
+          token.attrSet("width", `${dimensions.width * 0.5}`);
+          token.attrSet("height", `${dimensions.height * 0.5}`);
+
+          const imageBuffer = fs.readFileSync(imagePath);
+          token.attrSet("src", `data:image/png;base64,${imageBuffer.toString("base64")}`);
+        }
+      } catch (e) {
+        console.error(`Error reading image for PDF embedding: ${imagePath}`, e);
+      }
+      return defaultImageRule(tokens, idx, options, env, self);
+    };
+    const html = md_pdf.render(modified);
+
+    const pdfPage = await browser.newPage();
+    await pdfPage.setContent(html, { waitUntil: "domcontentloaded" });
+    await pdfPage.pdf({ path: pdfOutputFile, format: "A4" });
+    await pdfPage.close();
+    console.log(`Successfully generated PDF: ${pdfOutputFile}`);
   } catch (error) {
     console.error(`Failed to process ${filePath}:`, error);
   }
@@ -66,8 +98,8 @@ async function renderFile(filePath, page) {
   });
 
   watcher
-    .on("add", (filePath) => renderFile(filePath, page))
-    .on("change", (filePath) => renderFile(filePath, page))
+    .on("add", (filePath) => renderFile(filePath, browser, page))
+    .on("change", (filePath) => renderFile(filePath, browser, page))
     .on("ready", () => console.log(`Initial scan complete. Ready for changes in ./${watchDir}`));
 
   const closeBrowser = async () => {

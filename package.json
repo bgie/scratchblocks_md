@@ -10,6 +10,7 @@
     "fs-extra": "^11.2.0",
     "markdown-it": "^14.0.0",
     "puppeteer": "^22.0.0",
-    "chokidar": "^3.6.0"
+    "chokidar": "^3.6.0",
+    "image-size": "^1.1.1"
   }
 }
