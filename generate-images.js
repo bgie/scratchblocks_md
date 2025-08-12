@@ -80,6 +80,10 @@ async function renderFile(filePath, browser) {
     };
     const html = md_pdf.render(modified);
 
+    const htmlOutputFile = path.join(generatedDir, `${baseName}.html`);
+    await fs.writeFile(htmlOutputFile, html);
+    console.log(`Successfully generated HTML: ${htmlOutputFile}`);
+
     const pdfPage = await browser.newPage();
     await pdfPage.setContent(html, { waitUntil: "domcontentloaded" });
     await pdfPage.pdf({ path: pdfOutputFile, format: "A4" });
