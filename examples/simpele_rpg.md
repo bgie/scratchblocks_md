@@ -32,7 +32,45 @@ zet [transparant v] effect op (100)
 
 Nu is het tijd om de held te laten bewegen. We willen dat de speler de WASD-toetsen gebruikt. De held mag alleen bewegen zolang hij de "Weg"-sprite raakt.
 
-👉 Selecteer de "Held" sprite en voeg de volgende code toe:
+👉 Selecteer de "Held" sprite en maak de volgende 5 stukjes code. Daarna gaan we ze samenvoegen. Let goed op! Elke blokje reageert op een andere toets, en verandert ofwel x of y met 5 of -5.
+
+
+```scratchblocks:nl
+wanneer groene vlag wordt aangeklikt
+herhaal
+einde
+
+als <toets [w v] ingedrukt?> dan
+  verander y met (5)
+  als <niet <raak ik [Weg v]?>> dan
+    verander y met (-5)
+  einde
+einde
+
+als <toets [s v] ingedrukt?> dan
+  verander y met (-5)
+  als <niet <raak ik [Weg v]?>> dan
+    verander y met (5)
+  einde
+einde
+
+als <toets [a v] ingedrukt?> dan
+  verander x met (-5)
+  als <niet <raak ik [Weg v]?>> dan
+    verander x met (5)
+  einde
+einde
+
+als <toets [d v] ingedrukt?> dan
+  verander x met (5)
+  als <niet <raak ik [Weg v]?>> dan
+    verander x met (-5)
+  einde
+einde
+```
+
+👉 Nu mag je deze stukjes in mekaar steken. Let goed op dat je de vier stukken 'als toets ingedrukt' *onder* mekaar plaatst en niet *in* mekaar. Je code moet er zo uitzien:
+
 
 ```scratchblocks:nl
 wanneer groene vlag wordt aangeklikt
@@ -232,3 +270,21 @@ einde
 ## Stap 6: Conclusie
 
 Geweldig! Je hebt nu een kleine gamewereld met meerdere scènes. Je bestuurbaar personage kan tussen werelden reizen, binnen de grenzen van de paden blijven en zelfs een gesprek voeren. Vanaf hier kun je de wereld uitbreiden met meer scènes, personages en puzzels. Veel plezier!
+
+## Uitdagingen
+
+Denk je dat je het onder de knie hebt? Probeer deze uitdagingen om je kennis te testen.
+
+### Uitdaging 1: Een nieuwe vriend
+
+Voeg een nieuw personage (NPC) toe aan de `grot`-scène. Zorg ervoor dat:
+- Het personage alleen zichtbaar is in de grot.
+- Je met dit personage kunt praten door de 'p'-toets te gebruiken, net als met de zeemeermin.
+
+### Uitdaging 2: Een nieuwe wereld
+
+Breid het spel uit met een derde scène.
+- Maak een nieuwe achtergrond en noem deze bijvoorbeeld `bos`.
+- Voeg een pad toe voor deze nieuwe scène in de `Weg`-sprite.
+- Maak een nieuwe portal in de `buiten`-scène die naar het `bos` leidt.
+- Zorg ervoor dat er ook een portal is om vanuit het `bos` terug te keren naar `buiten`.

@@ -21,14 +21,17 @@ fi
 # Ensure destination directory exists
 mkdir -p "$DEST_DIR"
 
-echo "Syncing tutorial files from $SOURCE_DIR to $DEST_DIR..."
+echo "Continuously syncing tutorial HTML files from $SOURCE_DIR to $DEST_DIR..."
+echo "Press Ctrl+C to stop."
 
 # Use rsync to copy files. It's efficient and handles updates well.
 # -a: archive mode (preserves permissions, timestamps, etc.)
 # -v: verbose
 # --delete: remove files from destination that are not in source
+# --include='*/' --include='*.html' --exclude='*': only copy html files, preserving directory structure
 # The trailing slash on SOURCE_DIR is important: it copies the *contents*
 # of the source directory, not the directory itself.
-rsync -av --delete "$SOURCE_DIR/" "$DEST_DIR/"
-
-echo "Tutorials published successfully."
+while true; do
+    rsync -av --delete --include='*/' --include='*.html' --exclude='*' "$SOURCE_DIR/" "$DEST_DIR/"
+    sleep 2
+done
